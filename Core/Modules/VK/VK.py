@@ -1,5 +1,6 @@
 from urllib.request import urlretrieve
 import vk, os, time, math, requests
+import threading
 
 # requests все-таки добавлю, так как библиотрека для работы с VK не позволяет работать без access_token. Работа без
 # acess_token позволяет просматривать пользователей, у которых данный пользователь находится в black_list (если,
@@ -23,11 +24,10 @@ class Vk_data:
     access = ''
     vk_api = ''
     data_profile = ''
-    data_profile__w = '' # для данных без авторизации
     user_id = ''
     data_groups = ''
 
-    def __init__(self, site, token, year1, year2):
+    def __init__(self, site, token):
         self.access = token
         session = vk.Session(access_token = self.access)
         self.vk_api = vk.API(session)
@@ -55,10 +55,13 @@ class Vk_data:
             self.data_profile = self.data_profile.json()['response']
             self.data_groups = requests.get('https://api.vk.com/method/users.getSubscriptions?extended=1&fields=name, status, description&user_id=' + str(self.user_id))
             self.data_groups = self.data_groups.json()['response']
-        self.set_birthday(year1, year2)
-        self.change__sex()
-        self.change__city()
-        self.change__country()
+        #self.set_birthday()
+        #self.change__city()
+        #self.change__country()
+        #self.change__career()
+        #self.change__universities()
+        #self.change__schools()
+
 
     def change__sex(self):
         try:
@@ -70,17 +73,73 @@ class Vk_data:
             pass
 
     def change__city(self):
+        if 'city' in self.data_profile[0]:
+            #self.data_profile[0]['city'] = self.vk_api.database.getCitiesById(city_ids=self.data_profile[0]['city'])
+            #self.data_profile[0]['city'] = self.data_profile[0]['city'][0]['name']
+            self.data_profile[0]['city'] = requests.post(
+                        'https://api.vk.com/method/execute?access_token=' + self.access +
+                        '&code=return API.database.getCitiesById({"city_ids":' + str(self.data_profile[0]['city'])+'});').json()['response'][0]['name']
+    def change__universities(self):
+        if 'universities' in self.data_profile[0]:
+            for i in self.data_profile[0]['universities']:
+
+                #i['country'] = self.vk_api.database.getCountriesById(country_ids=i['country'])
+                i['country'] = requests.post(
+                    'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.database.getCountriesById({"country_ids":' + str(
+                        i['country']) + '});').json()['response'][0]['name']
+
+                #i['city'] = self.vk_api.database.getCitiesById(city_ids=i['city'])
+                i['city'] = requests.post(
+                    'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.database.getCitiesById({"city_ids":' + str(
+                        i['city']) + '});').json()['response'][0]['name']
+
+    def change__schools(self):
+        if 'schools' in self.data_profile[0]:
+            for i in self.data_profile[0]['schools']:
+
+                i['country'] = requests.post(
+                    'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.database.getCountriesById({"country_ids":' + str(
+                        i['country']) + '});').json()['response'][0]['name']
+
+                i['city'] = requests.post(
+                    'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.database.getCitiesById({"city_ids":' + str(
+                        i['city']) + '});').json()['response'][0]['name']
+
+
+    #todo
+    '''def update_career(self):
         try:
-            self.data_profile[0]['city'] = self.vk_api.database.getCitiesById(city_ids=self.data_profile[0]['city'])
-            self.data_profile[0]['city'] = self.data_profile[0]['city'][0]['name']
+            self.data_profile[0]['career'] =  self.vk_api.users.get(user_ids = self.user_id, fields ='career')
         except:
-            pass
+            try:
+                self.data_profile[0]['career'] = requests.get('https://api.vk.com/method/users.get?fields=career&user_id='+str(self.user_id))
+            except:
+                pass'''
+
+    def change__career(self):
+        if 'career' in self.data_profile[0]:
+            for i in self.data_profile[0]['career']:
+                if 'group_id' in i:
+                    name = self.vk_api.groups.getById(group_id=i['group_id'])[0]['name']
+                    i.update({'vk': name})
+                i['country_id'] = requests.post(
+                        'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.database.getCountriesById({"country_ids":' + str(i['country_id'])+'});')
+                i['country_id'] = i['country_id'].json()['response'][0]['name']
+                    #self.vk_api.database.getCountriesById(country_ids=i['country_id'])
+                i['city_id'] = i['city_id'] = requests.post(
+                        'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.database.getCitiesById({"city_ids":' + str(i['city_id'])+'});')
+                i['city_id'] = i['city_id'].json()['response'][0]['name']
+                    #self.vk_api.database.getCitiesById(city_ids=i['city_id'])
+
+
 
     def change__country(self):
-        try:
-            self.data_profile[0]['country'] = self.vk_api.database.getCountriesById(country_ids=self.data_profile[0]['country'])
-        except:
-            pass
+        if 'country' in self.data_profile[0]:
+            self.data_profile[0]['country'] = requests.post(
+                        'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.database.getCountriesById({"country_ids":' + str(self.data_profile[0]['country'])+'});')
+            self.data_profile[0]['country'] = self.data_profile[0]['country'].json()['response'][0]['name']
+                #self.data_profile[0]['country'] = self.vk_api.database.getCountriesById(country_ids=self.data_profile[0]['country'])
+
 
 
     def get__likes(self, count):
@@ -92,6 +151,7 @@ class Vk_data:
         data_groups = ['-' + str(x) for x in data_groups]
         is_liked = []
         newsfeed = self.vk_api.newsfeed.get(filters = 'post', source_ids = ', '.join(data_groups), count = count, timeout = 10)
+        next = newsfeed['next_from']
         try:
             for i in newsfeed['items']:
                 if self.vk_api.likes.isLiked(user_id = self.user_id, type = 'post', owner_id = str(i['source_id']),
@@ -102,7 +162,7 @@ class Vk_data:
             is_liked.append('Упс! Кажется, данный пользователь давно ничего не лайкал!')
         return is_liked
 
-    def set_birthday(self, year1, year2):
+    def set_birthday(self):
         info = ''
         year = ''
         month = ''
@@ -113,21 +173,28 @@ class Vk_data:
             pass
 
         if len(info) != 10 and len(info) != 9:
-            print(len(info))
-            fname = self.data_profile[0]['first_name']
-            lname = self.data_profile[0]['last_name']
-            for i in range(year1, year2 + 1):
+            name = self.data_profile[0]['first_name'] + ' ' + self.data_profile[0]['last_name']
+            #lname = self.data_profile[0]['last_name']
+            for i in range(-2003, -1950):
+                i *= -1
                 try:
-                    ans = self.vk_api.users.search(q=fname + ' ' + lname, count=1000, birth_year=i)
+                    ans = requests.post(
+                        'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.users.search({"q":"' + name + '","count":"1000","birth_year":' + str(
+                            i) + '});')
+                    ans = ans.json()
+                    #ans = self.vk_api.users.search(q=fname + ' ' + lname, count=1000, birth_year=i)
                 except vk.exceptions.VkAPIError as text:
                     if str(text)[:2] == '6.':
-                        time.sleep(1)
+                        time.sleep(0.3)
                         continue
-                if ans[0] != 0:
-                    for j in ans[1:]:
+                if 'response' in ans and ans['response'][0] != 0:
+                    for j in ans['response'][1:]:
                         if j['uid'] == self.data_profile[0]['uid']:
                             year = i
                             break
+                else:
+                    i = -i - 1
+                    time.sleep(0.3)
                 if year != '':
                     break
             if (info != ''):
@@ -135,29 +202,45 @@ class Vk_data:
             else:
                 for i in range(1, 32):
                     try:
-                        ans = self.vk_api.users.search(q=fname + ' ' + lname, count=100, birth_day=i, birth_year=year)
+                        ans = requests.post(
+                            'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.users.search({"q":"' + name + '","count":"1000","birth_day":' + str(
+                                i) + ',"birth_year":'+str(year)+'});')
+                        ans = ans.json()
+                        #ans = self.vk_api.users.search(q=name, count=100, birth_day=i, birth_year=year)
                     except vk.exceptions.VkAPIError as text:
                         if str(text)[:2] == '6.':
-                            time.sleep(1)
-                    if ans[0] != 0:
-                        for j in ans[1:]:
+                            time.sleep(0.3)
+                        continue
+                    if 'response' in ans and ans['response'][0] != 0:
+                        for j in ans['response'][1:]:
                             if j['uid'] == self.data_profile[0]['uid']:
                                 day = i
                                 break
+                    else:
+                        i -= 1
+                        time.sleep(0.3)
                     if day != '':
                         break
                 for i in range(1, 13):
                     try:
-                        ans = self.vk_api.users.search(q=fname + ' ' + lname, count=50, birth_day=day, birth_year=year,
-                                                  birth_month=i)
+                        ans = requests.post(
+                            'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.users.search({"q":"' + name + '","count":"1000","birth_month":' + str(
+                                i) + ',"birth_year":' + str(year) + ',"birth_day":'+str(day)+'});')
+                        ans = ans.json()
+                        #ans = self.vk_api.users.search(q=name, count=50, birth_day=day, birth_year=year,
+                        #                          birth_month=i)
                     except vk.exceptions.VkAPIError as text:
                         if str(text)[:2] == '6.':
-                            time.sleep(1)
-                    if ans[0] != 0:
-                        for j in ans[1:]:
+                            time.sleep(0.3)
+                            continue
+                    if 'response' in ans and ans['response'][0] != 0:
+                        for j in ans['response'][1:]:
                             if j['uid'] == self.data_profile[0]['uid']:
                                 month = i
                                 break
+                    else:
+                        i -= 1
+                        time.sleep(0.3)
                     if month != '':
                         break
                 self.data_profile[0].update({'bdate': str(day) + '.' + str(month) + '.' + str(year)})
@@ -173,111 +256,169 @@ class Vk_data:
     def get__user_id(self):
         return self.user_id
 
-class Interests: #todo задать определенный процент для выведения на экран
-
-    interests = ''
-
-    def __init__(self, acc_name):
-        pass
 
 
 
-
-
-
-    def get__interests(self):
-        return self.interests
 
 class Profile:
-    id = ''
-    fname = ''
-    lname = ''
-    sex = ''
-    birth_day = ''
-    birth_month = ''
-    birth_year = ''
-    city = ''
-    country = ''
-    mobile_phone = ''
-    home_phone = ''
-    skype = ''
-    instagram = ''
+    vk_data = ''
+    id = 'id'
+    fname = 'Имя'
+    lname = 'Фамилия'
+    mname = 'Отчество'
+    sex = 'Пол'
+    birth_day = 'дд'
+    birth_month = 'мм'
+    birth_year = 'гггг'
+    city = 'Город'
+    country = 'Страна'
+    mobile_phone = 'Телефон'
+    skype = 'skype.com/'
+    instagram = 'instagram.com/'
+    facebook = 'facebook.com/'
+    twitter = 'twitter.com/'
     status = ''
-    career = ''
+    career = 'Места работы'
     military = ''
-    education = ''
+    education = 'Места учебы'
     relation = ''
     personal = ''
-    interests = ''
-    relatives = ''
+    interests = 'Интересы'
+    relatives = 'Родственные связи'
+    likes = 'Понравившиеся посты'
 
-    def __init__(self, acc_name):
-        data = acc_name.get__data_profile()[0]
+    def __int__(self):
+        pass
+
+    def set_data(self, site, access):
+        self.vk_data = Vk_data(site, access)
+        data = self.vk_data.get__data_profile()[0]
         self.id = data['uid']
         self.fname = data['first_name']
         self.lname = data['last_name']
         try:
             self.sex = data['sex']
         except:
-            pass
+            self.sex = 'Пол'
 
         try:
             self.birth_day = data['bdate'].split('.')[0]
         except:
-            pass
+            self.birth_day = 'дд'
 
         try:
             self.birth_month = data['bdate'].split('.')[1]
         except:
-            pass
+            self.birth_month = 'мм'
 
         try:
             self.birth_year = data['bdate'].split('.')[2]
         except:
-            pass
+           self.birth_year = 'гггг'
 
         try:
             self.city = data['city']
-            if self.city == []:
-                self.city = ''
-            self.city = self.city[0]['name']
         except:
-            pass
+            self.city = 'Город'
 
         try:
             self.mobile_phone = data['mobile_phone']
         except:
-            pass
+            self.mobile_phone = 'Телефон'
 
         try:
             self.instagram = data['instagram']
         except:
-            pass
+            self.instagram = 'instagram.com/'
 
         try:
             self.skype = data['skype']
         except:
-            pass
+            self.skype = 'skype.com/'
 
         try:
             self.status = data['status']
         except:
             pass
 
-        try:
-            self.career = data['career']
-        except:
-            pass
+        if 'career' in data:
+            self.career = ''
+            for i in data['career']:
+                if 'vk' in i:
+                    self.career += 'Место работы: ' + i['vk'] + '\n' + 'Страна: ' + i['country_id'][0]['name'] + '\n' + 'Город: ' \
+                                   + i['city_id'][0]['name'] + '\n'
+
+                else:
+                    self.career += 'Место работы: ' + i['company'] + '\n' + 'Страна: ' + i['country_id'][0]['name'] + '\n' \
+                                   + 'Город: ' + i['city_id'][0]['name'] + '\n'
+
+                self.career += 'Годы работы: '
+                if 'from' in i:
+                    self.career += str(i['from']) + ' - '
+                else:
+                    self.career += 'Неизвестно - '
+                if 'until' in i:
+                    self.career += str(i['until']) + '\n'
+                else:
+                    self.career += 'неизвестно\n'
+                self.career += 'Должность: '
+                if 'position' in i:
+                    self.career += i['position'] + '\n\n'
+                else:
+                    self.career += 'Неизвестно\n\n'
+            if self.career == '':
+                self.career = 'Места работы'
+
+
+        else:
+            self.career = 'Места работы'
 
         try:
             self.military = data['military']
         except:
             pass
 
-        try:
-            self.education = data['education']
-        except:
-            pass
+        if 'schools' in data and len(data['schools']) != 0:
+            self.education = ''
+            for i in data['schools']:
+                self.education += i['name'] + '\n' + 'Страна: ' + i['country'][0]['name'] + '\n' + 'Город: ' + \
+                                      i['city'][0]['name'] + '\n' + 'Годы обучения: '
+                if 'year_from' in i:
+                    self.education += str(i['year_from']) + ' - '
+                else:
+                    self.education += 'Неизвестно - '
+                if 'year_to' in i:
+                    self.education += str(i['year_to']) + ' - '
+                else:
+                    self.education += 'неизвестно\n'
+                self.education += 'Класс: '
+                if 'class' in i:
+                    self.education += str(i['class']) + '\n\n'
+                else:
+                    self.education += 'Неизвестно\n\n'
+        if 'universities' in data and len(data['universities']) != 0:
+            if self.education == 'Места учебы':
+                self.education = ''
+            for i in data['universities']:
+                self.education += i['name'] + '\n'
+                if 'faculty_name' in i:
+                    self.education += i['faculty_name'] + '\n'
+                else:
+                        self.education += 'Факультет: неизвестно\n'
+                if 'chair_name' in i:
+                        self.education += i['chair_name'] + '\n'
+                else:
+                    self.education += 'Кафедра: неизвестно\n'
+                self.education += 'Страна: ' + i['country'][0]['name'] + '\n'
+                self.education += 'Город: ' + i['city'][0]['name'] + '\n'
+                if 'education_form' in i:
+                    self.education += i['education_form'] + '\n'
+                else:
+                    self.education += 'Отделение: неизвестно\n'
+                if 'education_status' in i:
+                    self.education += i['education_status'] + '\n\n'
+                else:
+                    self.education += '\n'
 
         try:
             self.relation = data['relation']
@@ -292,12 +433,12 @@ class Profile:
         try:
             self.relatives = data['relatives']
         except:
-            pass
+            self.relatives = 'Родственные связи'
 
         try:
-            self.interests = self.InterestsSearch(acc_name)
+            self.interests = self.InterestsSearch()
         except:
-            pass
+            self.interests = 'Интересы'
 
         try:
             self.country = data['country']
@@ -308,13 +449,11 @@ class Profile:
             pass
 
 
-    def gett(self):
-        return [self.country, self.id, self.fname, self.lname, self.sex, self.birth_day, self.birth_month, self.birth_year, self.city,
-                self.mobile_phone, self.home_phone, self.skype, self.instagram, self.status, self.career, self.military,
-                self.education, self.relation, self.personal, self.interests, self.relatives]
+    def get_data(self):
+        return self.vk_data.get__data_profile()[0]
 
-    def InterestsSearch(self, acc_name):
-        info_about_groups = acc_name.get__data_groups()
+    def InterestsSearch(self):
+        info_about_groups = self.vk_data.get__data_groups()
         full = 0
         interests_list = ''
         interests_dict = {
@@ -364,12 +503,11 @@ class Profile:
         pass
 
 
+A = Vk_data('https://vk.com/yakovlenko_anna','#your_token')
+#A.set_data('https://vk.com/id', '#your_token')
 
+print(A.data_profile)
+print(A.get__likes())
 
-
-for x in range(1000):
-    A = Vk_data('https://vk.com/frost_voltage', '', 1990, 1999)
-    print(A.get__data_profile(), '\n')
-    time.sleep(3)
 
 
