@@ -6,6 +6,7 @@ class MyWindow:
     vk_profile = Profile()
     root = Tk()
 
+
     group_Info = LabelFrame(root,
                             padx=200,
                             pady=330,
@@ -343,9 +344,16 @@ class MyWindow:
                    relief='flat',
                    font='courier 10')
 
+
+
     LBigInfo = Label(root)
-    TBigInfo = Text(LBigInfo, height=14, width=44, padx=2)
+    TBigInfo = Text(LBigInfo, height=12, width=44, padx=2)
     SBigInfo = Scrollbar(LBigInfo, command=TBigInfo.yview)
+
+    BFindLikes = Button(LBigInfo,
+                        text='Обновить',
+                        width=35,
+                        relief='sunken')
 
     label_first_infoW = [LFid, LFFName, LFLName, LFMName, LFBDay, LFBMonth, LFBYear, LFMobile, LFCity, LFCountry]
     entry_first_infoW = [TLName, TFName, TMName, TBDay, TBMonth, TBYear, TCity, TCountry, TMobile]
@@ -445,6 +453,8 @@ class MyWindow:
     def pack_second_infoW(self):
         self.LFTwitter.pack()
 
+        self.BFindLikes.pack()
+
         self.LFInstagram.pack()
 
         self.LFSkype.pack()
@@ -468,6 +478,8 @@ class MyWindow:
 
         self.BEducation.bind('<Button-1>', self.bind_education)
         self.BEducation.place(x=918, y=170)
+
+
 
     def block_entry(self):
 
@@ -586,8 +598,10 @@ class MyWindow:
             self.TBigInfo.delete('1.0', END)
             self.TBigInfo.insert(1.0, self.vk_profile.career)
             self.TBigInfo.config(state=DISABLED)
-        self.TBigInfo.delete('1.0', END)
-        self.TBigInfo.insert(1.0, self.vk_profile.career)
+        else:
+            self.TBigInfo.delete('1.0', END)
+            self.TBigInfo.insert(1.0, self.vk_profile.career)
+        self.BFindLikes['relief'] = 'sunken'
 
     def bind_education(self, event):
         if self.TBigInfo['state'] == 'disabled':
@@ -595,8 +609,10 @@ class MyWindow:
             self.TBigInfo.delete('1.0', END)
             self.TBigInfo.insert(1.0, self.vk_profile.education)
             self.TBigInfo.config(state=DISABLED)
-        self.TBigInfo.delete('1.0', END)
-        self.TBigInfo.insert(1.0, self.vk_profile.education)
+        else:
+            self.TBigInfo.delete('1.0', END)
+            self.TBigInfo.insert(1.0, self.vk_profile.education)
+        self.BFindLikes['relief'] = 'sunken'
 
     def bind_relations(self, event):
         if self.TBigInfo['state'] == 'disabled':
@@ -604,17 +620,21 @@ class MyWindow:
             self.TBigInfo.delete('1.0', END)
             self.TBigInfo.insert(1.0, self.vk_profile.relatives)
             self.TBigInfo.config(state=DISABLED)
-        self.TBigInfo.delete('1.0', END)
-        self.TBigInfo.insert(1.0, self.vk_profile.relatives)
+        else:
+            self.TBigInfo.delete('1.0', END)
+            self.TBigInfo.insert(1.0, self.vk_profile.relatives)
+        self.BFindLikes['relief'] = 'sunken'
 
     def bind_likes(self, event):
+        self.BFindLikes['relief'] = 'groove'
         if self.TBigInfo['state'] == 'disabled':
             self.TBigInfo.config(state=NORMAL)
             self.TBigInfo.delete('1.0', END)
             self.TBigInfo.insert(1.0, self.vk_profile.likes)
             self.TBigInfo.config(state=DISABLED)
-        self.TBigInfo.delete('1.0', END)
-        self.TBigInfo.insert(1.0, self.vk_profile.likes)
+        else:
+            self.TBigInfo.delete('1.0', END)
+            self.TBigInfo.insert(1.0, self.vk_profile.likes)
 
     def bind_interests(self, event):
         if self.TBigInfo['state'] == 'disabled':
@@ -622,17 +642,26 @@ class MyWindow:
             self.TBigInfo.delete('1.0', END)
             self.TBigInfo.insert(1.0, self.vk_profile.interests)
             self.TBigInfo.config(state=DISABLED)
-        self.TBigInfo.delete('1.0', END)
-        self.TBigInfo.insert(1.0, self.vk_profile.interests)
+        else:
+            self.TBigInfo.delete('1.0', END)
+            self.TBigInfo.insert(1.0, self.vk_profile.interests)
+        self.BFindLikes['relief'] = 'sunken'
 
     def bind_search_user(self, event):
 
-            self.vk_profile.set_data(self.TSearchSite.get(), '#your_token')
+            self.vk_profile.set_data(self.TSearchSite.get(), '7f8a5df12a5633ee0496fd3e8c22cc3d565eb75a9cf4a4d36616840af3bcc4bd064c8b69a08085123a70d')
             self.unblock_entry()
             self.clear_entry()
             self.set_entry()
             self.block_entry()
 
+    def bind_find_likes(self, event):
+        if self.TBigInfo['state'] == 'disabled':
+            self.TBigInfo.config(state=NORMAL)
+            self.TBigInfo.delete('1.0', END)
+            self.vk_profile.vk_data.get__likes(5)
+        else:
+            pass
 a = MyWindow()
 
 

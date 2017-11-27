@@ -1,20 +1,22 @@
-import sqlite3
+import sqlite3,os
 
 
 class MySavedProfiles:
-    db_path = ''
+    db_path = 'Core\\DataBase\\DB.sqlite3'
     ProfileSaves = 'ProfileSaves'
 
 
     def __init__(self):
-        self.conn = sqlite3.connect(self.db_path)
+        #os.remove(self.db_path)
+        self.conn = sqlite3.connect(self.db_path,check_same_thread=False)
         self.cursor = self.conn.cursor()
-        self.tableCreation()
+        #self.tableCreation()
 
         pass
 
     def tableCreation(self):
-        self.conn.execute("CREATE TABLE"+ self.ProfileSaves+"("
+        cursor = self.conn.cursor()
+        cursor.execute("CREATE TABLE "+ self.ProfileSaves+" ("
                           "id TEXT, "
                           "fname TEXT,"
                           " lname TEXT,"
@@ -32,16 +34,21 @@ class MySavedProfiles:
                           "career TEXT,"
                           "education TEXT,"
                           "interests TEXT,"
-                          "relatives TEXT)")
+                          "relatives TEXT);")
+        self.conn.commit()
+
+
+        cursor.close()
 
 
     def addFrom(self,person):
         '''
         INSERT
         INTO
-        db2mapper_table_config(, , )
+        db2mapper_table_config(`table_name`, `downloaded`, `table_columns`)
         VALUES('%s', % i, '%s')
         '''
+        cursor = self.conn.cursor()
         values = (person.id,
                   person.fname,
                   person.lname,
@@ -61,7 +68,7 @@ class MySavedProfiles:
                   person.interests,
                   person.relatives)
 
-        self.conn.execute("INSERT INTO" + self.ProfileSaves+"VALUES (?,"
+        cursor.execute("INSERT INTO " + self.ProfileSaves+" VALUES (?,"
                                                                     "?,"
                                                                     "?,"
                                                                     "?,"
@@ -81,16 +88,49 @@ class MySavedProfiles:
                                                                     "?"
                                                                     ")",
                                                                     values)
+        self.conn.commit()
+
+        cursor.close()
+
 
         pass
 
-    def getFromTo(self,id, person):
-        data = self.conn.execute("SELECT * FROM" + self.ProfileSaves + "WHERE id=?", (id,))
+    def getFromTo(self,id):
+        result = {}
+        cursor = self.conn.cursor()
+        for raw in self.conn.execute("SELECT * FROM " + self.ProfileSaves + " WHERE id=? LIMIT 1", (id,)):
+            result['id'] = raw[0]
+            result['fname'] = raw[1]
+            result['lname'] = raw[2]
+            result['mname'] = raw[3]
+            result['birth_day'] = raw[4]
+            result['birth_month'] = raw[5]
+            result['birth_year'] = raw[6]
+            result['city'] = raw[7]
+            result['country'] = raw[8]
+            result['mobile_phone'] = raw[9]
+            result['skype'] = raw[10]
+            result['instagram'] = raw[11]
+            result['facebook'] = raw[12]
+            result['twitter'] = raw[13]
+            result['career'] = raw[14]
+            result['education'] = raw[15]
+            result['interests'] = raw[16]
+            result['relatives'] = raw[17]
+        cursor.close()
+        return result
 
+    def updateUserData(self,id,changeArr):
 
+        cursor = self.conn.cursor()
+        for i in changeArr.keys():
+            print("UPDATE "+self.ProfileSaves+" SET " +str(i)+ " = "+str(changeArr[i])+" WHERE id = '" + str(id) + "';")
+            self.conn.execute("UPDATE "+self.ProfileSaves+" SET " +str(i)+ " = '"+str(changeArr[i])+"' WHERE id = " + str(id) + ";")
 
+        self.conn.commit()
+        cursor.close()
 
-    def updateUserData(self,str):
         pass
+
 
 
