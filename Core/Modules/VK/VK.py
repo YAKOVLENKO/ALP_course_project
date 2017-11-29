@@ -156,59 +156,6 @@ class Vk_data:
 
 
 
-    def get__likes(self):
-        count=5
-        counter = 0
-        try:
-            data_groups = self.vk_api.groups.get(user_id=self.user_id, extended=0)
-        except:
-            data_groups = requests.get('https://api.vk.com/method/users.getSubscriptions?user_id=' + str(self.user_id))
-            data_groups = data_groups.json()['response']['groups']['items']
-        data_groups = ['-' + str(x) for x in data_groups]
-        posts = []
-        is_liked = []
-
-        newsfeed = self.vk_api.newsfeed.get(filters='post', source_ids=', '.join(data_groups), count=100, timeout=10)
-
-        for x in newsfeed['items']:
-            posts.append([x['post_id'], x['source_id']])
-        if count != 1:
-            for i in range(count - 1):
-                next_from = newsfeed['new_from']
-                kwargs = {
-                    'from': next_from,
-                    'filters': 'post',
-                    'source_ids': ', '.join(data_groups),
-                    'count': 100,
-                    'timeout': 10
-                }
-                newsfeed = self.vk_api.newsfeed.get(**kwargs)
-
-                for x in newsfeed['items']:
-                    posts.append([x['post_id'], x['source_id']])
-                time.sleep(0.35)
-
-        for i in range(0, len(posts) // 25):
-            i = i * 25
-            text = 'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return ['
-            for g in range(0, 25):
-                g = g + i
-                post = posts[g]
-                text = text + 'API.likes.isLiked({"user_id":' + str(self.user_id) + ',"type":"post", "owner_id":"' + str(
-                    post[1]) + \
-                       '", "item_id":"' + str(post[0]) + '"}),'
-            text = text[0:-1] + ']' \
-                                ';'
-            result = requests.post('https://api.vk.com/method/execute?access_token=' + self.access + '&code=' + text).json()[
-                'response']
-            # print(result)
-            time.sleep(0.35)
-            for i in result:
-                if i == 1:
-                    is_liked.append('vk.com/wall-{0}_{1}'.format(-posts[counter][1], posts[counter][0]))
-                counter += 1
-        return is_liked
-
     def set_birthday(self):
         info = ''
         year = ''
@@ -228,6 +175,7 @@ class Vk_data:
                 ans = ''
                 while ans == '':
                     try:
+                        time.sleep(0.35)
                         ans = requests.post(
                             'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.users.search({"q":"' + name + '","count":"1000","birth_year":' + str(
                                 i) + '});').json()
@@ -351,6 +299,8 @@ class Profile:
             self.birth_month = 'мм'
             self.birth_year = 'гггг'
 
+
+
         if 'city' in data:
             self.city = data['city']
         else:
@@ -366,7 +316,7 @@ class Profile:
         else:
             self.instagram = 'instagram.com/'
 
-        if 'skype in data':
+        if 'skype' in data:
             self.skype = data['skype']
         else:
             self.skype = 'skype.com/'
@@ -531,13 +481,67 @@ class Profile:
                 interests_list += i + ', '
         return interests_list.title()
 
+    def get_likes(self, vk_api, token):
+        count = 5
+        counter = 0
+        try:
+            data_groups = vk_api.groups.get(user_id=self.id, extended=0)
+        except:
+            data_groups = requests.get('https://api.vk.com/method/users.getSubscriptions?user_id=' + str(self.id))
+            data_groups = data_groups.json()['response']['groups']['items']
+        data_groups = ['-' + str(x) for x in data_groups]
+        posts = []
+        is_liked = []
+
+        newsfeed = vk_api.newsfeed.get(filters='post', source_ids=', '.join(data_groups), count=100, timeout=10)
+
+        for x in newsfeed['items']:
+            posts.append([x['post_id'], x['source_id']])
+        if count != 1:
+            for i in range(count - 1):
+                next_from = newsfeed['new_from']
+                kwargs = {
+                    'from': next_from,
+                    'filters': 'post',
+                    'source_ids': ', '.join(data_groups),
+                    'count': 100,
+                    'timeout': 10
+                }
+                newsfeed = vk_api.newsfeed.get(**kwargs)
+
+                for x in newsfeed['items']:
+                    posts.append([x['post_id'], x['source_id']])
+                time.sleep(0.35)
+
+        for i in range(0, len(posts) // 25):
+            i = i * 25
+            text = 'https://api.vk.com/method/execute?access_token=' + token + '&code=return ['
+            for g in range(0, 25):
+                g = g + i
+                post = posts[g]
+                text = text + 'API.likes.isLiked({"user_id":' + str(
+                    self.id) + ',"type":"post", "owner_id":"' + str(
+                    post[1]) + \
+                       '", "item_id":"' + str(post[0]) + '"}),'
+            text = text[0:-1] + ']' \
+                                ';'
+            result = \
+            requests.post('https://api.vk.com/method/execute?access_token=' + token + '&code=' + text).json()[
+                'response']
+            # print(result)
+            time.sleep(0.35)
+            for i in result:
+                if i == 1:
+                    is_liked.append('vk.com/wall-{0}_{1}'.format(-posts[counter][1], posts[counter][0]))
+                counter += 1
+        self.likes = is_liked
 
 
     def search_city(self):
         pass
 
-B = Profile()
-B.set_data('yakovlenko_anna', 'd550e01849aae9307c1263ddb24ec5b6a48d3c9f10df200cfefcbc36c14f9f903f97d28ac9d8ea2af9142')
+#B = Profile()
+#B.set_data('yakovlenko_anna', 'd550e01849aae9307c1263ddb24ec5b6a48d3c9f10df200cfefcbc36c14f9f903f97d28ac9d8ea2af9142')
 
 
 

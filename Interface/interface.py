@@ -1,11 +1,14 @@
 import vk
 from tkinter import *
 from Core.Modules.VK.VK import Profile
+from Core.DataBase import Base
 
 class MyWindow:
     vk_profile = Profile()
     root = Tk()
-
+    data_base = Base.MySavedProfiles()
+    token = ''
+    api = ''
 
     group_Info = LabelFrame(root,
                             padx=200,
@@ -345,6 +348,23 @@ class MyWindow:
                    font='courier 10')
 
 
+    TokWindow = Toplevel()
+    TokEntry = Entry(TokWindow,
+                    font='courier 10',
+                    width=30,
+                    show="*",
+                    relief='groove')
+    TokInfo = Label(TokWindow,
+                    text='Введите токен:',
+                    relief='groove',
+                    padx=69,
+                    bg='white',
+                    font='arial 9')
+    TokButton = Button(TokWindow,
+                        text='Ввод',
+                        width=35,
+                        relief='groove')
+
 
     LBigInfo = Label(root)
     TBigInfo = Text(LBigInfo, height=12, width=44, padx=2)
@@ -371,16 +391,38 @@ class MyWindow:
         self.root.resizable(False, False)
         self.set_default_W()
 
-        self.BSearchSite.bind('<Button-1>', self.bind_search_user)
         self.BSearchSite.place(x=1200, y=5)
         self.TSearchSite.place(x=901, y=7)
+        self.BSearchSite.bind('<Button-1>', self.bind_search_user)
 
         self.set_buttons_infoW()
         self.set_entry()
         self.set_infoW()
         self.pack_first_infoW()
+        self.call_TopLevel()
+
         self.root.mainloop()
 
+    def add_lineToVk(self):
+
+        session = vk.Session(access_token=self.token)
+        self.api = vk.API(session)
+        try:
+            self.api.account.getCounters(filter='messages')
+            return 1
+        except:
+            return 0
+
+    def getUserId(self, link):
+        id = link
+        if 'vk.com/' in link:  # проверяем эту ссылку
+            id = link.split('/')[-1]  # если да, то получаем его последнюю часть
+        if not id.replace('id', '').isdigit():  # если в нем после отсечения 'id' сами цифры - это и есть id
+            id = self.api.utils.resolveScreenName(screen_name=id)[
+                'object_id']  # если нет, получаем id с помощью метода API
+        else:
+            id = id.replace('id', '')
+        return int(id)
 
     def set_text(self, field, text):
         field.delete(0, END)
@@ -454,6 +496,7 @@ class MyWindow:
         self.LFTwitter.pack()
 
         self.BFindLikes.pack()
+        self.BFindLikes.bind('<Button-1>', self.bind_updateLikes)
 
         self.LFInstagram.pack()
 
@@ -478,8 +521,6 @@ class MyWindow:
 
         self.BEducation.bind('<Button-1>', self.bind_education)
         self.BEducation.place(x=918, y=170)
-
-
 
     def block_entry(self):
 
@@ -561,8 +602,13 @@ class MyWindow:
 
     def bind_save(self, event):
         pass
-        if self.BSaveTo['text'] == 'Сохранить профиль':
-            pass
+        if self.BSaveTo['text'] == 'Сохранить профиль' and self.vk_profile.id != 'id':
+            if self.data_base.findUser(self.vk_profile.id):
+                diff = self.data_base.findDiff(self.vk_profile)
+                self.data_base.updateUserData(self.vk_profile.id, diff)
+            else:
+                self.data_base.addFrom(self.vk_profile)
+
         else:
             self.BChange['text'] = 'Изменить'
             self.BSaveTo['text'] = 'Сохранить профиль'
@@ -648,8 +694,17 @@ class MyWindow:
         self.BFindLikes['relief'] = 'sunken'
 
     def bind_search_user(self, event):
-
-            self.vk_profile.set_data(self.TSearchSite.get(), '7f8a5df12a5633ee0496fd3e8c22cc3d565eb75a9cf4a4d36616840af3bcc4bd064c8b69a08085123a70d')
+        request = self.TSearchSite.get()
+        id = self.getUserId(request)
+        if self.data_base.findUser(id):
+            self.data_base.getFromTo(self.vk_profile, id)
+            self.unblock_entry()
+            self.clear_entry()
+            self.set_entry()
+            self.block_entry()
+            print(self.vk_profile.fname)
+        else:
+            self.vk_profile.set_data(request, self.token)
             self.unblock_entry()
             self.clear_entry()
             self.set_entry()
@@ -662,8 +717,41 @@ class MyWindow:
             self.vk_profile.vk_data.get__likes(5)
         else:
             pass
-a = MyWindow()
 
+    def call_TopLevel(self):
+        self.TokWindow.resizable(False, False)
+        self.TokWindow.tkraise(self.root)
+        self.TokInfo.pack()
+        self.TokEntry.pack()
+        self.TokButton.pack()
+        self.TokButton.bind('<Button-1>', self.bind_token)
+
+    def close_TopLevel(self):
+        self.TokWindow.overrideredirect(True)
+        self.TokWindow.withdraw()
+        self.root.grab_release()
+
+    def bind_token(self, event):
+        self.token = self.TokEntry.get()
+
+        if self.add_lineToVk():
+            self.TokWindow.destroy()
+
+        else: self.TokInfo['text'] = 'Неверный токен, попробуйте еще раз!'
+
+    def bind_updateLikes(self, event):
+        if self.vk_profile.id != 'id':
+            self.vk_profile.get_likes(self.api, self.token)
+        if self.TBigInfo['state'] == 'disabled':
+            self.TBigInfo.config(state=NORMAL)
+            self.TBigInfo.delete('1.0', END)
+            self.TBigInfo.insert(1.0, self.vk_profile.likes)
+            self.TBigInfo.config(state=DISABLED)
+        else:
+            self.TBigInfo.delete('1.0', END)
+            self.TBigInfo.insert(1.0, self.vk_profile.likes)
+
+a = MyWindow()
 
 
 
