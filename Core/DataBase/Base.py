@@ -34,7 +34,8 @@ class MySavedProfiles:
                           "career TEXT,"
                           "education TEXT,"
                           "interests TEXT,"
-                          "relatives TEXT);")
+                          "relatives TEXT,"
+                          "groups TEXT);")
         self.conn.commit()
         cursor.close()
 
@@ -174,5 +175,39 @@ class MySavedProfiles:
                 difference.update({'relatives': person.relatives})
         cursor.close()
         return difference
+
+    def findSame(self, word):
+        find_fname_lname_id = [[],[]]
+        find_lname = []
+        cursor = self.conn.cursor()
+
+        for raw in self.conn.execute("SELECT fname FROM " + self.ProfileSaves):
+            find_fname_lname_id[0].append(raw[0])
+        for raw in self.conn.execute("SELECT lname FROM " + self.ProfileSaves):
+            find_lname.append(raw[0])
+        for i in range(0, len(find_fname_lname_id[0])):
+            find_fname_lname_id[0][i] = find_fname_lname_id[0][i] + ' ' + find_lname[i]
+        for raw in self.conn.execute("SELECT id FROM " + self.ProfileSaves):
+            find_fname_lname_id[1].append(raw[0])
+        counter = 0
+        for names in range(0, len(find_fname_lname_id[0])):
+            if not word in find_fname_lname_id[0][names - counter] or word == '':
+                find_fname_lname_id[0].pop(names - counter)
+                find_fname_lname_id[1].pop(names - counter)
+                counter += 1
+        cursor.close()
+        return find_fname_lname_id
+
+    def get_fname(self, id):
+        fname = ''
+        for raw in self.conn.execute("SELECT fname FROM " + self.ProfileSaves + " WHERE id=? LIMIT 1", (id,)):
+            fname = raw[0]
+        return fname
+
+    def get_lname(self, id):
+        lname = ''
+        for raw in self.conn.execute("SELECT lname FROM " + self.ProfileSaves + " WHERE id=? LIMIT 1", (id,)):
+            lname = raw[0]
+        return lname
 
 
