@@ -31,7 +31,7 @@ class Vk_data:
     user_id = ''
     data_groups = ''
     def __init__(self, site, token):
-        try:
+     #try:
             self.access = token
             session = vk.Session(access_token = self.access)
             self.vk_api = vk.API(session)
@@ -67,8 +67,7 @@ class Vk_data:
             self.change__universities()
             self.change__schools()
             self.downloadSave_picture()
-        except:
-            pass
+
 
 
     def change__relatives(self):
@@ -138,12 +137,18 @@ class Vk_data:
         if 'country' in self.data_profile[0]:
             try:
                 time.sleep(1)
+                a = self.data_profile[0]['country']
                 self.data_profile[0]['country'] = requests.post(
                             'https://api.vk.com/method/execute?access_token=' + self.access + '&code=return API.database.getCountriesById({"country_ids":' + str(self.data_profile[0]['country'])+'});')
                 self.data_profile[0]['country'] = self.data_profile[0]['country'].json()['response'][0]['name']
                     #self.data_profile[0]['country'] = self.vk_api.database.getCountriesById(country_ids=self.data_profile[0]['country'])
             except:
-                pass
+                try:
+                    self.data_profile[0]['country'] = self.vk_api.database.getCountriesById(
+                        country_ids=self.data_profile[0]['country'])
+                    self.data_profile[0]['country'] = self.data_profile[0]['country'][0]
+                except:
+                    self.data_profile[0]['country'] = 'Страна'
 
     def set_birthday(self):
         info = ''
@@ -165,6 +170,7 @@ class Vk_data:
                         i *= -1
                         ans = ''
                         try:
+                            time.sleep(1)
                             ans = self.vk_api.users.search(q=name, count=1000, birth_year=i)
                         except vk.exceptions.VkAPIError as text:
                             if str(text)[:2] == '6.':
@@ -184,6 +190,7 @@ class Vk_data:
                     else:
                         for i in range(1, 32):
                             try:
+                                time.sleep(1)
                                 ans = self.vk_api.users.search(q=name, count=1000, birth_day=i,
                                                                birth_year=year)
                             except vk.exceptions.VkAPIError as text:
@@ -198,6 +205,7 @@ class Vk_data:
                                 break
                         for i in range(1, 13):
                             try:
+                                time.sleep(1)
                                 ans = self.vk_api.users.search(q=name, count=1000, birth_day=day,
                                                                birth_year=year,
                                                                birth_month=i)
@@ -217,7 +225,7 @@ class Vk_data:
     def downloadSave_picture(self):
         data = self.data_profile[0]
         url = data['photo_200']
-        urllib.request.urlretrieve(url, '..\\Interface\\SavedPictures\\'+data['first_name']+ '_' + data['last_name'] + '.jpg')
+        urllib.request.urlretrieve(url, '..\\Interface\\SavedPictures\\'+str(data['uid']) + '.jpg')
 
 
 
@@ -248,7 +256,6 @@ class Profile:
         pass
 
     def set_data(self, site, access):
-        try:
             self.vk_data = Vk_data(site, access)
             data = self.vk_data.data_profile[0]
             self.id = data['uid']
@@ -257,7 +264,7 @@ class Profile:
 
             self.groups = self.vk_data.data_groups
 
-
+            self.likes = 'Недавние лайки'
 
             try:
                 self.birth_day = data['bdate'].split('.')[0]
@@ -373,10 +380,11 @@ class Profile:
 
             if 'relatives' in data:
                 for i in data['relatives']:
+                    self.relatives = ''
                     if i['type'] == 'parent':
-                        self.relatives += 'Родитель:' + i['name'] + '\n\n'
+                        self.relatives += 'Родитель: ' + i['name'] + '\n\n'
                     if i['type'] == 'sibling':
-                        self.relatives += 'Брат/сестра' + i['name'] + '\n\n'
+                        self.relatives += 'Брат/сестра: ' + i['name'] + '\n\n'
             else:
                 self.relatives = 'Родственные связи'
 
@@ -391,8 +399,7 @@ class Profile:
                    self.country = ''
             else:
                 pass
-        except:
-            pass
+
 
     def InterestsSearch(self):
         try:
@@ -596,11 +603,6 @@ class Profile:
             pass
 
 
-# 15 января в 2 дня АЯП
-
-#B = Vk_data('https://vk.com/id394728714', 'f29548559f34a82cae2f3ec9578c4af5526a5fd60ca77a2bed80517b20af636c53d335bee5fe9bbc0265b')
-#B.set_data('yakovlenko_anna', 'd550e01849aae9307c1263ddb24ec5b6a48d3c9f10df200cfefcbc36c14f9f903f97d28ac9d8ea2af9142')
-#print(B.data_profile)
 
 
 

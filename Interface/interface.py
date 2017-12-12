@@ -895,12 +895,8 @@ class MyWindow:
         if self.BSaveTo['text'] == 'Сохранить профиль' and self.vk_profile.id != 'id':
             try:
                 if self.data_base.findUser(self.vk_profile.id):
-                    old_name = 'SavedPictures\\'+self.data_base.get_fname(self.vk_profile.id) \
-                               + '_' + self.data_base.get_lname(self.vk_profile.id) +'.jpg'
                     diff = self.data_base.findDiff(self.vk_profile)
                     self.data_base.updateUserData(self.vk_profile.id, diff)
-                    new_name = 'SavedPictures\\'+self.vk_profile.fname + '_' + self.vk_profile.lname +'.jpg'
-                    os.rename(old_name, new_name)
                 else:
                     self.data_base.addFrom(self.vk_profile)
             except:
@@ -996,7 +992,7 @@ class MyWindow:
         try:
             if not self.data_base.findUser(self.vk_profile.id):
                 try:
-                    os.remove('SavedPictures\\'+self.vk_profile.fname + ' ' + self.vk_profile.lname +'.jpg')
+                    os.remove('SavedPictures\\'+self.vk_profile.id +'.jpg')
                 except:
                     pass
         except:
@@ -1041,16 +1037,16 @@ class MyWindow:
         else: self.TokInfo['text'] = 'Неверный токен, попробуйте еще раз!'
 
     def bind_updateLikes(self, event):
-        if self.vk_profile.id != 'id':
+        if self.vk_profile.id != 'id' and self.BFindLikes['relief'] != 'sunken':
             self.vk_profile.get_likes(self.api, self.token)
-        if self.TBigInfo['state'] == 'disabled':
-            self.TBigInfo.config(state=NORMAL)
-            self.TBigInfo.delete('1.0', END)
-            self.TBigInfo.insert(1.0, self.vk_profile.likes)
-            self.TBigInfo.config(state=DISABLED)
-        else:
-            self.TBigInfo.delete('1.0', END)
-            self.TBigInfo.insert(1.0, self.vk_profile.likes)
+            if self.TBigInfo['state'] == 'disabled':
+                self.TBigInfo.config(state=NORMAL)
+                self.TBigInfo.delete('1.0', END)
+                self.TBigInfo.insert(1.0, self.vk_profile.likes)
+                self.TBigInfo.config(state=DISABLED)
+            else:
+                self.TBigInfo.delete('1.0', END)
+                self.TBigInfo.insert(1.0, self.vk_profile.likes)
 
     def bind_groupGraphF(self, event):
         self.ChBGroupGraph_Entry1.place(x=480, y=330)
@@ -1146,9 +1142,24 @@ class MyWindow:
 
     def bind_searchContacts(self, event):
 
-        word = self.TSearchContacts.get()
+        word = self.TSearchContacts.get().split()
+        contacts = [[],[]]
         try:
-            contacts = self.data_base.findSame(word)
+            #contacts = self.data_base.findSame(word)
+            for k in word:
+                tmp_contacts = self.data_base.findSame(k)
+                for ko in range(0, len(tmp_contacts[0])):
+                    if tmp_contacts[1][ko] not in contacts[1]:
+                        contacts[0].append(tmp_contacts[0][ko])
+                        contacts[1].append(tmp_contacts[1][ko])
+
+            counter = 0
+            for p in word:
+                for po in range(0, len(contacts[0])):
+                    if p.lower() not in contacts[0][po - counter].lower():
+                        contacts[0].remove(contacts[0][po - counter])
+                        contacts[1].remove(contacts[1][po - counter])
+                        counter += 1
         except:
             return
         for g in range(0, 6):
@@ -1156,22 +1167,22 @@ class MyWindow:
             self.EBlankForContacts[g].pack_forget()
             self.BSelectPersons[g].pack_forget()
             self.LFSelectPersons[g].place_forget()
-
-        for i in range(0, len(contacts[0])):
-            if i > 5:
-                break
-            self.EBlankForContacts[i]['state'] = NORMAL
-            self.EBlankForIds[i]['state'] = NORMAL
-            self.EBlankForContacts[i].delete(0, 'end')
-            self.EBlankForIds[i].delete(0, 'end')
-            self.EBlankForContacts[i].insert(END, contacts[0][i])
-            self.EBlankForIds[i].insert(END, contacts[1][i])
-            self.EBlankForContacts[i]['state'] = DISABLED
-            self.EBlankForIds[i]['state'] = DISABLED
-            self.LFSelectPersons[i].place(x=57, y=150 + i * 80)
-            self.EBlankForIds[i].pack()
-            self.EBlankForContacts[i].pack()
-            self.BSelectPersons[i].pack()
+        if len(contacts[0]) > 0:
+            for i in range(0, len(contacts[0])):
+                if i > 5:
+                    break
+                self.EBlankForContacts[i]['state'] = NORMAL
+                self.EBlankForIds[i]['state'] = NORMAL
+                self.EBlankForContacts[i].delete(0, 'end')
+                self.EBlankForIds[i].delete(0, 'end')
+                self.EBlankForContacts[i].insert(END, contacts[0][i])
+                self.EBlankForIds[i].insert(END, contacts[1][i])
+                self.EBlankForContacts[i]['state'] = DISABLED
+                self.EBlankForIds[i]['state'] = DISABLED
+                self.LFSelectPersons[i].place(x=57, y=150 + i * 80)
+                self.EBlankForIds[i].pack()
+                self.EBlankForContacts[i].pack()
+                self.BSelectPersons[i].pack()
 
     def bind_selectPerson1(self, event):
         self.deletePhoto()
@@ -1224,7 +1235,7 @@ class MyWindow:
     def setPhoto(self):
         try:
             self.IPhoto = ImageTk.PhotoImage(Image.open(
-                "SavedPictures\\" + self.vk_profile.fname + '_' + self.vk_profile.lname + ".jpg"))
+                "SavedPictures\\" + str(self.vk_profile.id) + ".jpg"))
             self.LPhoto['image'] = self.IPhoto
         except:
             self.IPhoto = ImageTk.PhotoImage(Image.open(
@@ -1234,7 +1245,7 @@ class MyWindow:
     def deletePhoto(self):
         if not self.data_base.findUser(self.vk_profile.id):
             try:
-                path = 'SavedPictures\\'+self.vk_profile.fname + '_' + self.vk_profile.lname +'.jpg'
+                path = 'SavedPictures\\'+str(self.vk_profile.id) +'.jpg'
                 os.remove(path)
             except:
                 pass

@@ -34,19 +34,13 @@ class MySavedProfiles:
                           "career TEXT,"
                           "education TEXT,"
                           "interests TEXT,"
-                          "relatives TEXT,"
-                          "groups TEXT);")
+                          "relatives TEXT);")
         self.conn.commit()
         cursor.close()
 
 
     def addFrom(self,person):
-        '''
-        INSERT
-        INTO
-        db2mapper_table_config(`table_name`, `downloaded`, `table_columns`)
-        VALUES('%s', % i, '%s')
-        '''
+
         cursor = self.conn.cursor()
         values = (person.id,
                   person.fname,
@@ -191,23 +185,13 @@ class MySavedProfiles:
             find_fname_lname_id[1].append(raw[0])
         counter = 0
         for names in range(0, len(find_fname_lname_id[0])):
-            if not word in find_fname_lname_id[0][names - counter] or word == '':
+            if not word.lower() in find_fname_lname_id[0][names - counter].lower() or word == '':
                 find_fname_lname_id[0].pop(names - counter)
                 find_fname_lname_id[1].pop(names - counter)
                 counter += 1
         cursor.close()
         return find_fname_lname_id
 
-    def get_fname(self, id):
-        fname = ''
-        for raw in self.conn.execute("SELECT fname FROM " + self.ProfileSaves + " WHERE id=? LIMIT 1", (id,)):
-            fname = raw[0]
-        return fname
-
-    def get_lname(self, id):
-        lname = ''
-        for raw in self.conn.execute("SELECT lname FROM " + self.ProfileSaves + " WHERE id=? LIMIT 1", (id,)):
-            lname = raw[0]
-        return lname
+ 
 
 
