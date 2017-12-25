@@ -1,0 +1,230 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Base.py &#8212; Документация ALP_course_project </title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="VK.py" href="VK.html" />
+    <link rel="prev" title="Profile.py" href="Profile.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="VK.html" title="VK.py"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="Profile.html" title="Profile.py"
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="base-py">
+<h1>Base.py<a class="headerlink" href="#base-py" title="Ссылка на этот заголовок">¶</a></h1>
+<dl class="class">
+<dt id="SavedProfiles">
+<em class="property">class </em><code class="descname">SavedProfiles</code><a class="headerlink" href="#SavedProfiles" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Работа с базой данных</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>db_path</strong> – Путь к базе данных</li>
+<li><strong>ProfileSaves</strong> – Название таблицы, в которую заносятся данные</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="SavedProfiles.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SavedProfiles.__init__" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Конструктор</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SavedProfiles.tableCreation">
+<code class="descname">tableCreation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SavedProfiles.tableCreation" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, создающая таблицу для хранения данных</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SavedProfiles.addFrom">
+<code class="descname">addFrom</code><span class="sig-paren">(</span><em>person</em><span class="sig-paren">)</span><a class="headerlink" href="#SavedProfiles.addFrom" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для занесения данных пользователя в базу данных</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>person</strong> – Объект класса <a class="reference internal" href="Profile.html#Profile" title="Profile"><code class="xref py py-class docutils literal"><span class="pre">Profile</span></code></a>, предоставляющий данные для хранения</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SavedProfiles.getFromTo">
+<code class="descname">getFromTo</code><span class="sig-paren">(</span><em>person</em>, <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#SavedProfiles.getFromTo" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для получения информации о профиле пользователя из базы данных</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first last simple">
+<li><strong>person</strong> – Объект класса <a class="reference internal" href="Profile.html#Profile" title="Profile"><code class="xref py py-class docutils literal"><span class="pre">Profile</span></code></a>, в который заносятся данные</li>
+<li><strong>id</strong> – Идентификационный номер пользователя, информацию о котором необходимо найти</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SavedProfiles.updateUserData">
+<code class="descname">updateUserData</code><span class="sig-paren">(</span><em>id</em>, <em>changeArr</em><span class="sig-paren">)</span><a class="headerlink" href="#SavedProfiles.updateUserData" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, обновляющая хранящуюся в базе данных информацию о пользователе</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> – Идентификационный номер пользователя, хранящуюся информацию о котором необходимо изменить</li>
+<li><strong>changeArr</strong> – Обновлённые данные пользователя</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SavedProfiles.findUser">
+<code class="descname">findUser</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#SavedProfiles.findUser" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для проверки наличия информации о пользователе в базе данных</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>id</strong> – Идентификационный номер пользователя, наличие данных о котором нужно проверить</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body">True или False в зависимости от того, существует ли информация о данном пользоватетле в базе данных или нет</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SavedProfiles.findDiff">
+<code class="descname">findDiff</code><span class="sig-paren">(</span><em>person</em><span class="sig-paren">)</span><a class="headerlink" href="#SavedProfiles.findDiff" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для проверки соответствия полученной и хранящейся в базе данных информации</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>person</strong> – Объект класса <a class="reference internal" href="Profile.html#Profile" title="Profile"><code class="xref py py-class docutils literal"><span class="pre">Profile</span></code></a>, предоставляющий информацию для сравнения</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body">Словарь, содержащий в себе различающиеся параметры</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SavedProfiles.findSame">
+<code class="descname">findSame</code><span class="sig-paren">(</span><em>word</em><span class="sig-paren">)</span><a class="headerlink" href="#SavedProfiles.findSame" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для нахождения пользователя, в чьем имени/фамилии находится определенное слово</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>word</strong> – Слово, по которому производится поиск</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body">Массив, содержащий в себе имена, фамилии и идентификационные номера пользователей, подходящих под заданные условия</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="Profile.html"
+                        title="предыдущая глава">Profile.py</a></p>
+  <h4>Следующий раздел</h4>
+  <p class="topless"><a href="VK.html"
+                        title="следующая глава">VK.py</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Искать" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="VK.html" title="VK.py"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="Profile.html" title="Profile.py"
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Yakovlenko Anna.
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

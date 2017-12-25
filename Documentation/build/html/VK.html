@@ -1,0 +1,195 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>VK.py &#8212; Документация ALP_course_project </title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="Base.py" href="Base.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="Base.html" title="Base.py"
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="vk-py">
+<h1>VK.py<a class="headerlink" href="#vk-py" title="Ссылка на этот заголовок">¶</a></h1>
+<dl class="class">
+<dt id="Vk_data">
+<em class="property">class </em><code class="descname">Vk_data</code><a class="headerlink" href="#Vk_data" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Получение данных о пользователе</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access</strong> – Токен</li>
+<li><strong>vk_api</strong> – Сессия VK</li>
+<li><strong>data_profile</strong> – Общие данные о пользователе</li>
+<li><strong>user_id</strong> – Идентификационный номер пользователя</li>
+<li><strong>data_groups</strong> – Данные о группах пользователя</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="Vk_data.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>site</em>, <em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.__init__" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Конструктор</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first last simple">
+<li><strong>site</strong> – Ссылка на пользователя VK</li>
+<li><strong>token</strong> – Токен VK</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Vk_data.getUserId">
+<code class="descname">getUserId</code><span class="sig-paren">(</span><em>link</em><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.getUserId" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для получения идентификационного номера пользователя</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>link</strong> – Ссылка на пользователя VK</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body">Идентификационный номер пользователя</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Vk_data.change__relatives">
+<code class="descname">change__relatives</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.change__relatives" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для приведения информации о родственных связях пользователя в более удобный для дальнейшей обработки вид</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Vk_data.change__city">
+<code class="descname">change__city</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.change__city" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для приведения информации о городе проживания пользователя в более удобный для дальнейшей обработки вид</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Vk_data.change__universities">
+<code class="descname">change__universities</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.change__universities" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для приведения информации о местах обучения пользователя в более удобный для дальнейшей обработки вид</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Vk_data.change__schools">
+<code class="descname">change__schools</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.change__schools" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для приведения информации о местах обучения пользователя в более удобный для дальнейшей обработки вид</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Vk_data.change__career">
+<code class="descname">change__career</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.change__career" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для приведения информации о местах работы пользователя в более удобный для дальнейшей обработки вид</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Vk_data.change__country">
+<code class="descname">change__country</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.change__country" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для приведения информации о стране проживания пользователя в более удобный для дальнейшей обработки вид</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Vk_data.set_birthday">
+<code class="descname">set_birthday</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.set_birthday" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для поиска информации о дате рождения пользователя</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Vk_data.downloadSave_picture">
+<code class="descname">downloadSave_picture</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Vk_data.downloadSave_picture" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для скачивания фотографии пользователя</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="Base.html"
+                        title="предыдущая глава">Base.py</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Искать" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="Base.html" title="Base.py"
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Yakovlenko Anna.
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,611 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>interface.py &#8212; Документация ALP_course_project </title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="graphs.py" href="Graphs.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="Graphs.html" title="graphs.py"
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="interface-py">
+<h1>interface.py<a class="headerlink" href="#interface-py" title="Ссылка на этот заголовок">¶</a></h1>
+<dl class="class">
+<dt id="Window">
+<em class="property">class </em><code class="descname">Window</code><a class="headerlink" href="#Window" title="Ссылка на это определение">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vk_profile</strong> – Объект класса <a class="reference internal" href="Profile.html#Profile" title="Profile"><code class="xref py py-class docutils literal"><span class="pre">Profile</span></code></a></li>
+<li><strong>root</strong> – Данные о группах пользователя для обработки</li>
+<li><strong>data_base</strong> – Объект класса <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a></li>
+<li><strong>token</strong> – Токен</li>
+<li><strong>api</strong> – Сессия VK</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Оснвополагающие элементы:</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>group_Info</strong> – Рамка для полей с основной информацией о пользователе</li>
+<li><strong>group_Info_B</strong> – Кнопка для размещения рамки <strong>group_Info</strong></li>
+<li><strong>group_Graph</strong> – Рамка для полей с настройками графов</li>
+<li><strong>group_Graph_B</strong> – Кнопка для размещения рамки <strong>group_Graph</strong></li>
+<li><strong>group_Base</strong> – Рамка для полей, отвечающих за работу с базой данных</li>
+<li><strong>group_Base_B</strong> – Кнопка для размещения рамки <strong>Base</strong></li>
+<li><strong>group_TokenSet</strong> – Рамка для полей, отвечающих за подключение</li>
+<li><strong>group_TokenSet_B</strong> – Кнопка для размещения рамки <strong>TokenSet</strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Работа с основной информацией о пользователе:</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>BSaveTo</strong> – Кнопка «Сохранить». Выполняемая функция: <a class="reference internal" href="#Window.bind_save" title="Window.bind_save"><code class="xref py py-func docutils literal"><span class="pre">bind_save()</span></code></a></li>
+<li><strong>BChange</strong> – Кнопка «Изменить» . Выполняемая функция: <a class="reference internal" href="#Window.bind_change" title="Window.bind_change"><code class="xref py py-func docutils literal"><span class="pre">bind_change()</span></code></a></li>
+<li><strong>BInfoType</strong> – Кнопка «Дополнительная информация». Выполняемая функция: <a class="reference internal" href="#Window.bind_another_info" title="Window.bind_another_info"><code class="xref py py-func docutils literal"><span class="pre">bind_another_info()</span></code></a></li>
+<li><strong>label_first_infoW</strong> – Массив, хранящий в себе неизменяеые поля и рамки, принадлежащие <strong>first_infoW</strong></li>
+<li><strong>entry_first_infoW</strong> – Массив, хранящий в себе изменяеые поля, принадлежащие <strong>first_infoW</strong></li>
+<li><strong>label_second_infoW</strong> – Массив, хранящий в себе рамки, принадлежащие <strong>second_infoW</strong></li>
+<li><strong>entry_second_infoW</strong> – Массив, хранящий в себе некоторые изменяеые поля, принадлежащие <strong>second_infoW</strong></li>
+<li><strong>bunntons_second_infoW</strong> – Кнопки, принадлежащие <strong>second_infoW</strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>Основная информация:</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>LFid</strong> – Рамка для поля <strong>LId</strong></li>
+<li><strong>LId</strong> – Поле, показывающее значение идентификационного номера пользователя</li>
+<li><strong>LFFName</strong> – Рамка для поля <strong>TFName</strong></li>
+<li><strong>TFName</strong> – Поле, показвающее имя пользователя</li>
+<li><strong>LFLName</strong> – Рамка для поля <strong>TLName</strong></li>
+<li><strong>TLName</strong> – Поле, показвающее фамиилю пользователя</li>
+<li><strong>LFMName</strong> – Рамка для поля <strong>TMName</strong></li>
+<li><strong>TMName</strong> – Поле, показвающее отчество пользователя</li>
+<li><strong>LFBDay</strong> – Рамка для поля <strong>TBDay</strong></li>
+<li><strong>TBDay</strong> – Поле, показвающее день рождения пользователя</li>
+<li><strong>LFBMonth</strong> – Рамка для поля <strong>TBMonth</strong></li>
+<li><strong>TBMonth</strong> – Поле, показвающее месяц рождения пользователя</li>
+<li><strong>LFBYear</strong> – Рамка для поля <strong>TBYear</strong></li>
+<li><strong>TBYear</strong> – Поле, показвающее год рождения пользователя</li>
+<li><strong>LFCity</strong> – Рамка для поля <strong>TCity</strong></li>
+<li><strong>TCity</strong> – Поле, показвающее город проживания пользователя</li>
+<li><strong>LFCountry</strong> – Рамка для поля <strong>TCountry</strong></li>
+<li><strong>TCountry</strong> – Поле, показвающее страну проживания пользователя</li>
+<li><strong>LFMobile</strong> – Рамка для поля <strong>TMobile</strong></li>
+<li><strong>TMobile</strong> – Поле, показвающее номер мобльного телефона пользователя</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>Дополнительная информация</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>BCareer</strong> – Кнопка «Карьера». Выполняемая функция: <code class="xref py py-func docutils literal"><span class="pre">bind_career()</span></code></li>
+<li><strong>BEducation</strong> – Кнопка «Образование». Выполняемая функция: <a class="reference internal" href="#Window.bind_education" title="Window.bind_education"><code class="xref py py-func docutils literal"><span class="pre">bind_education()</span></code></a></li>
+<li><strong>BRelatives</strong> – Кнопка «Родственные связи». Выполняемая функция: <a class="reference internal" href="#Window.bind_relations" title="Window.bind_relations"><code class="xref py py-func docutils literal"><span class="pre">bind_relations()</span></code></a></li>
+<li><strong>BInterests</strong> – Кнопка «Интересы». Выполняемая функция: <a class="reference internal" href="#Window.bind_interests" title="Window.bind_interests"><code class="xref py py-func docutils literal"><span class="pre">bind_interests()</span></code></a></li>
+<li><strong>BLikes</strong> – Кнопка «Недавние лайки». Выполняемая функция: <a class="reference internal" href="#Window.bind_likes" title="Window.bind_likes"><code class="xref py py-func docutils literal"><span class="pre">bind_likes()</span></code></a></li>
+<li><strong>LFContacts</strong> – Рамка для элементов <strong>LFTwitter LFInstagram LFSkype</strong></li>
+<li><strong>LFTwitter</strong> – Рамка для поля <strong>ETwitter</strong></li>
+<li><strong>ETwitter</strong> – Поле, показвающее Twitter пользователя</li>
+<li><strong>LFInstagram</strong> – Рамка для поля <strong>EInstagram</strong></li>
+<li><strong>EInstagram</strong> – Поле, показвающее Instagram пользователя</li>
+<li><strong>LFSkype</strong> – Рамка для поля <strong>ESkype</strong></li>
+<li><strong>ESkype</strong> – Поле, показвающее Skype пользователя</li>
+<li><strong>LBigInfo</strong> – Рамка для поля <strong>TBigInfo</strong>, кнопки <strong>BFindLikes</strong> и полосы прокрутки <strong>SBigInfo</strong></li>
+<li><strong>TBigInfo</strong> – Поле, отображающее: <em>интересы, понравившиеся посты, родственные связи, места обучения, места работы</em> пользователя</li>
+<li><strong>SBigInfo</strong> – Полоса проскрутки <strong>TBigInfo</strong></li>
+<li><strong>BFindLikes</strong> – Кнопка «Обновить». Выполняемая функция:</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Работа с подключением к VK:</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>TokEntry</strong> – Поле, принимающее токен</li>
+<li><strong>TokInfo</strong> – Поле, отображающее успешность соединения</li>
+<li><strong>TokButton</strong> – Кнопка «Ввод». Выполняемая функция:</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Работа с базой данных:</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>BSearch</strong> – Кнопка «Найти». Выполняемая функция:</li>
+<li><strong>LFSearchContacts</strong> – Рамка для поля <strong>TSearchContacts</strong></li>
+<li><strong>TSearchContacts</strong> – Поле, принимающее имя, фамилию пользователя или их фрагменты для поиска в базе данных</li>
+<li><strong>LFSelectPerson1</strong> – Рамка для отображения пользователя из базы данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a></li>
+<li><strong>LFSelectPerson2</strong> – Рамка для отображения пользователя из базы данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a></li>
+<li><strong>LFSelectPerson3</strong> – Рамка для отображения пользователя из базы данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a></li>
+<li><strong>LFSelectPerson4</strong> – Рамка для отображения пользователя из базы данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a></li>
+<li><strong>LFSelectPerson5</strong> – Рамка для отображения пользователя из базы данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a></li>
+<li><strong>LFSelectPerson6</strong> – Рамка для отображения пользователя из базы данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a></li>
+<li><strong>EBlankForContact1</strong> – Поле, отображающее имя и фамилию найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForContact2</strong> – Поле, отображающее имя и фамилию найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForContact3</strong> – Поле, отображающее имя и фамилию найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForContact4</strong> – Поле, отображающее имя и фамилию найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForContact5</strong> – Поле, отображающее имя и фамилию найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForContact6</strong> – Поле, отображающее имя и фамилию найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForId1</strong> – Поле, отображающее идентификационный номер найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForId2</strong> – Поле, отображающее идентификационный номер найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForId3</strong> – Поле, отображающее идентификационный номер найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForId4</strong> – Поле, отображающее идентификационный номер найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForId5</strong> – Поле, отображающее идентификационный номер найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>EBlankForId6</strong> – Поле, отображающее идентификационный номер найденного в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователя</li>
+<li><strong>BSelectPerson1</strong> – Кнопка «Выбрать», отвечающая за отображение информации, хранящейся в базе данных, на экран. Выполняемая функция:</li>
+<li><strong>BSelectPerson2</strong> – Кнопка «Выбрать», отвечающая за отображение информации, хранящейся в базе данных, на экран. Выполняемая функция:</li>
+<li><strong>BSelectPerson3</strong> – Кнопка «Выбрать», отвечающая за отображение информации, хранящейся в базе данных, на экран. Выполняемая функция:</li>
+<li><strong>BSelectPerson4</strong> – Кнопка «Выбрать», отвечающая за отображение информации, хранящейся в базе данных, на экран. Выполняемая функция:</li>
+<li><strong>BSelectPerson5</strong> – Кнопка «Выбрать», отвечающая за отображение информации, хранящейся в базе данных, на экран. Выполняемая функция:</li>
+<li><strong>BSelectPerson6</strong> – Кнопка «Выбрать», отвечающая за отображение информации, хранящейся в базе данных, на экран. Выполняемая функция:</li>
+<li><strong>EBlankForContacts</strong> – Массив полей, отображающих имена и фамилии найденных в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователей</li>
+<li><strong>EBlankForIds</strong> – Массив полей, отображающих идентификационные номера найденных в базе данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a> пользователей</li>
+<li><strong>BSelectPersons</strong> – Массив кнопок, отвечающих за отображение информации, хранящейся в базе данных, на экран</li>
+<li><strong>LFSelectPersons</strong> – Массив рамок, служащих для отображения пользователей из базы данных <a class="reference internal" href="Base.html#SavedProfiles" title="SavedProfiles"><code class="xref py py-class docutils literal"><span class="pre">SavedProfiles</span></code></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Работа с поиском пользователя по ссылке на его профиль:</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>BSearchSite</strong> – Кнопка «Поиск». Выполняемая функция:</li>
+<li><strong>TSearchSite</strong> – Поле, принимающее ссылку на страницу пользователя</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Работа с графами:</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>LFGroupsGraph</strong> – Рамка, содержащая в себе элементы, отвечающие за графы <strong>gr_Group</strong> и <strong>gr_GroupSix</strong>, принадлежащие классу <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+<li><strong>ChBGroupGraph_frame</strong> – Рамка для кнопок <strong>ChBGroupGraph_button1</strong> и <strong>ChBGroupGraph_button2</strong></li>
+<li><strong>ChBGroupGraph_button1</strong> – Кнопка «Вариант 1», отвечающая за отображение элементов, связанных с построением графа <strong>gr_GroupSix</strong>, принадлежащего классу <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a>. Выполняемая функция:</li>
+<li><strong>ChBGroupGraph_button2</strong> – Кнопка «Вариант 2», отвечающая за отображение элементов, связанных с построением графа <strong>gr_Group</strong>, принадлежащего классу <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a>. Выполняемая функция:</li>
+<li><strong>LFGGButton</strong> – Кнопка, отвечающая за размещение рамки <strong>LFGroupsGraph</strong></li>
+<li><strong>ChBGroupGraph_Info1</strong> – Поле, показывающее информацию о графе <strong>gr_GroupSix</strong>, что принадлежит классу <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+<li><strong>ChBGroupGraph_Info2</strong> – Поле, показывающее информацию о графе <strong>gr_Group</strong>, что принадлежит классу <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>Граф gr_CommonFr</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>LFFriendsGraph</strong> – Рамка, содержащая в себе элементы, отвечающие за граф <strong>gr_CommonFr</strong>, принадлежащий классу <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+<li><strong>LFFGButton</strong> – Кнопка, отвечающая за размещение рамки <strong>LFFriendsGraph</strong></li>
+<li><strong>BFriendsGraph</strong> – Кнопка «Построить», отвечающая за построение графа  <strong>gr_CommonFr</strong>, принадлежащего классу <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a>. Выполняемая функция:</li>
+<li><strong>BFriendsGraph_info</strong> – Поле, показывающее информацию о графе <strong>gr_CommonFr</strong>, что принадлежит классу <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>Граф gr_GroupSix</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>BGroupsGraph</strong> – кнопка «Построить», отвечающая за построение графов  <strong>gr_Group</strong> и <strong>gr_GroupSix</strong>, принадлежащих классу <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a>. Выполняемая функция:</li>
+<li><strong>ChBGroupGraph_Entry1</strong> – Поле,принимающее ссылку на группу, которую нужно включить в список вершин, принадлежащих графу <strong>gr_GroupSix</strong> класса <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+<li><strong>ChBGroupGraph_Entry2</strong> – Поле,принимающее ссылку на группу, которую нужно включить в список вершин, принадлежащих графу <strong>gr_GroupSix</strong> класса <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+<li><strong>ChBGroupGraph_Entry3</strong> – Поле,принимающее ссылку на группу, которую нужно включить в список вершин, принадлежащих графу <strong>gr_GroupSix</strong> класса <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+<li><strong>ChBGroupGraph_Entry4</strong> – Поле,принимающее ссылку на группу, которую нужно включить в список вершин, принадлежащих графу <strong>gr_GroupSix</strong> класса <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+<li><strong>ChBGroupGraph_Entry5</strong> – Поле,принимающее ссылку на группу, которую нужно включить в список вершин, принадлежащих графу <strong>gr_GroupSix</strong> класса <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+<li><strong>ChBGroupGraph_Entry6</strong> – Поле,принимающее ссылку на группу, которую нужно включить в список вершин, принадлежащих графу <strong>gr_GroupSix</strong> класса <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+<li><strong>Entries_ofGroupGraph</strong> – Массив, содерщащий поля, принимающие ссылки на группы, которые нужно включить в список вершин, принадлежащих графу <strong>gr_GroupSix</strong> класса <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>Граф gr_Group</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ChBGroupGraph_CounterText</strong> – Поле, показывающее назначение поля <strong>ChBGroupGraph_Counter</strong></li>
+<li><strong>ChBGroupGraph_Counter</strong> – Поле, принимающее количество групп, которое нужно включить в качестве вершин в граф <strong>gr_Group</strong> класса <a class="reference internal" href="Graphs.html#Graph" title="Graph"><code class="xref py py-class docutils literal"><span class="pre">Graph</span></code></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Работа с фото</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>LPhoto</strong> – Рамка для фотографии <strong>IPhoto</strong></li>
+<li><strong>IPhoto</strong> – Фотография пользователя</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="Window.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.__init__" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Конструктор</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.pack_searchContacts">
+<code class="descname">pack_searchContacts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.pack_searchContacts" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для оформления зоны работы с базой данных и активации работы кнопок, входящих в нее</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.pack_tokenW">
+<code class="descname">pack_tokenW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.pack_tokenW" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для оформления зоны работы с токеном и активации работы кнопок, входящих в нее</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.pack_graphW">
+<code class="descname">pack_graphW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.pack_graphW" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для оформления зоны работы с графами и активации работы кнопок, входящих в нее</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.getUserId">
+<code class="descname">getUserId</code><span class="sig-paren">(</span><em>link</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.getUserId" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для получения идентификационного номера пользователя</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>link</strong> – Ссылка на пользователя VK</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.set_text">
+<code class="descname">set_text</code><span class="sig-paren">(</span><em>field</em>, <em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.set_text" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для установления текста в поле</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first last simple">
+<li><strong>field</strong> – Поле, в которое необходимо установить текст</li>
+<li><strong>text</strong> – Текст, который необходимо установить</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.set_infoW">
+<code class="descname">set_infoW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.set_infoW" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для общего оформления зоны работы с основной информацией о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.pack_first_infoW">
+<code class="descname">pack_first_infoW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.pack_first_infoW" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для оформления зоны работы с основной информацией о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.forget_first_infoW">
+<code class="descname">forget_first_infoW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.forget_first_infoW" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, закрывающая все поля, входящие в зону работы с основной информацией о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.pack_second_infoW">
+<code class="descname">pack_second_infoW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.pack_second_infoW" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для оформления зоны работы с дополнительной информацией о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.forget_second_infoW">
+<code class="descname">forget_second_infoW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.forget_second_infoW" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, закрывающая все поля, входящие в зону работы с дополнительной информацией о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.block_entry">
+<code class="descname">block_entry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.block_entry" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, блокирующая ввод текста в поля основной и дополнительной информации о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.unblock_entry">
+<code class="descname">unblock_entry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.unblock_entry" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, разблокирующая ввод текста в поля основной и дополнительной информации о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.set_entry">
+<code class="descname">set_entry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.set_entry" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, устанавливающая значения из объекта класса <a class="reference internal" href="Profile.html#Profile" title="Profile"><code class="xref py py-class docutils literal"><span class="pre">Profile</span></code></a> в поля с основной и дополнительной информацией о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.clear_entry">
+<code class="descname">clear_entry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.clear_entry" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, очищающая поля с основной и дополнительной информацией о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.set_buttons_infoW">
+<code class="descname">set_buttons_infoW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.set_buttons_infoW" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, устанавливающая работу кнопок, входящих в зону работы с основной и дополнительной информацей о пользователе</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.set_default_W">
+<code class="descname">set_default_W</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Window.set_default_W" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, размечающая основные зоны работы посредством установления рамок на главный экран</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.bind_change">
+<code class="descname">bind_change</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.bind_change" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, выполняющаяся при нажании на кнопку <strong>BChange</strong></p>
+<dl class="docutils">
+<dt>Меняет как свои функции и внешний вид, так и других кнопок. Позволяет:</dt>
+<dd><ul class="first last simple">
+<li>Менять значения полей, содержащих основную и дополнительную информацию о пользователе</li>
+<li>Отменять изменения, внесенные в поля, содержащие основную и дополнительную информацию о пользователе</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>event</strong> – Событие, при котором функция начинает выполняться</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.bind_save">
+<code class="descname">bind_save</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.bind_save" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, выполняющаяся при нажании на кнопку <strong>BSaveTo</strong></p>
+<dl class="docutils">
+<dt>Меняет как свои функции и внешний вид, так и других кнопок. Позволяет:</dt>
+<dd><ul class="first last simple">
+<li>Сохранять профиль в базу данных</li>
+<li>Принимать изменения в полях с основной и дополнительной информацией о пользователе</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>event</strong> – Событие, при котором функция начинает выполняться</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.bind_another_info">
+<code class="descname">bind_another_info</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.bind_another_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, выполняющаяся при нажании на кнопку <strong>BInfoType</strong></p>
+<p>Меняет свои функции и внешний вид. Показывает и скрывает поля с основной и дополнительной информацией о пользователе</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>event</strong> – Событие, при котором функция начинает выполняться</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.bind_bind_career">
+<code class="descname">bind_bind_career</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.bind_bind_career" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, выполняющаяся при нажании на кнопку <strong>BCareer</strong></p>
+<p>Показывает информацию о карьере пользователя в поле <strong>TBigInfo</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>event</strong> – Событие, при котором функция начинает выполняться</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.bind_education">
+<code class="descname">bind_education</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.bind_education" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, выполняющаяся при нажании на кнопку <strong>BEducation</strong></p>
+<p>Показывает информацию об образовании пользователя в поле <strong>TBigInfo</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>event</strong> – Событие, при котором функция начинает выполняться</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.bind_relations">
+<code class="descname">bind_relations</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.bind_relations" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, выполняющаяся при нажании на кнопку <strong>BRelatives</strong></p>
+<p>Показывает информацию о родственных связях пользователя в поле <strong>TBigInfo</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>event</strong> – Событие, при котором функция начинает выполняться</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.bind_likes">
+<code class="descname">bind_likes</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.bind_likes" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, выполняющаяся при нажании на кнопку <strong>BLikes</strong></p>
+<p>Показывает информацию о понравившихся пользователю постах в поле <strong>TBigInfo</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>event</strong> – Событие, при котором функция начинает выполняться</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Window.bind_interests">
+<code class="descname">bind_interests</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Window.bind_interests" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция, выполняющаяся при нажании на кнопку <strong>BInterests</strong></p>
+<p>Показывает информацию об интересах пользователя в поле <strong>TBigInfo</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>event</strong> – Событие, при котором функция начинает выполняться</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="Graphs.html"
+                        title="предыдущая глава">graphs.py</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Искать" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="Graphs.html" title="graphs.py"
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Yakovlenko Anna.
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

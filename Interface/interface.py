@@ -1,18 +1,17 @@
 import vk
 from tkinter import *
-from Core.Modules.VK.VK import Profile
+from Core.Modules.Profile.Profile import Profile
 from Core.DataBase import Base
 from Interface.Graphs.graphs import Graph
 from PIL import ImageTk, Image
 import os
 
-class MyWindow:
+class Window:
     vk_profile = Profile()
     root = Tk()
-    data_base = Base.MySavedProfiles()
+    data_base = Base.SavedProfiles()
     token = ''
     api = ''
-    user_graph = Graph()
 
     group_Info = LabelFrame(root,
                             padx=200,
@@ -43,13 +42,13 @@ class MyWindow:
                           bg='white',
                           relief='flat')
 
-    group_GraphSet = LabelFrame(root,
+    group_TokenSet = LabelFrame(root,
                                 padx=275,
                                 pady=80,
                                 labelanchor='n',
                                 bg='white')
 
-    group_GraphSet_B = Button(group_GraphSet,
+    group_TokenSet_B = Button(group_TokenSet,
                               bg='white',
                               relief='flat')
 
@@ -65,12 +64,6 @@ class MyWindow:
                        text='Дополнительная информация',
                        width=53,
                        relief='groove')
-
-    BMyBase = Label(text='Сохраненные профили',
-                    relief='groove',
-                    padx=69,
-                    bg='white',
-                    font='arial 9')
 
     BSearch = Button(text='Найти',
                      relief='groove',
@@ -648,7 +641,6 @@ class MyWindow:
         self.BSelectPerson5.bind('<Button-1>', self.bind_selectPerson5)
         self.BSelectPerson6.bind('<Button-1>', self.bind_selectPerson6)
 
-
     def pack_tokenW(self):
         self.TokButton.place(x=350, y=130)
         self.TokEntry.place(x=350, y=90)
@@ -713,8 +705,9 @@ class MyWindow:
 
         session = vk.Session(access_token=self.token)
         self.api = vk.API(session)
+        self.user_graph = Graph(self.vk_profile, self.api, self.token)
         try:
-            self.api.account.getCounters(filter='messages')
+            self.api.account.getCounters(filter='friends')
             return 1
         except:
             return 0
@@ -875,9 +868,9 @@ class MyWindow:
         self.group_Base.place(x=35, y=35)
         self.group_Base_B.pack()
 
-        self.group_GraphSet.pack()
-        self.group_GraphSet.place(x=323, y=35)
-        self.group_GraphSet_B.pack()
+        self.group_TokenSet.pack()
+        self.group_TokenSet.place(x=323, y=35)
+        self.group_TokenSet_B.pack()
 
     def bind_change(self, event):
         if self.BChange['text'] == 'Изменить':
@@ -1034,6 +1027,7 @@ class MyWindow:
         if self.add_lineToVk():
             self.TokInfo['text'] = 'Соединение установлено'
 
+
         else: self.TokInfo['text'] = 'Неверный токен, попробуйте еще раз!'
 
     def bind_updateLikes(self, event):
@@ -1131,14 +1125,14 @@ class MyWindow:
             else: count = int(self.ChBGroupGraph_Counter.get())
             self.user_graph.make_groupGraph(self.vk_profile.fname, self.vk_profile.lname,
                                             self.vk_profile.getInfo_fromCountOfGroups(self.api,count))
-            self.user_graph.show_groupGraph_common()
+            self.user_graph.show_groupGraph()
         else:
             found_groups = []
             for i in self.Entries_ofGroupGraph:
                 found_groups.append(i.get())
             self.user_graph.make_groupGraphSix(self.vk_profile.fname, self.vk_profile.lname,
                                                self.vk_profile.getInfo_fromGroups(self.api, found_groups))
-            self.user_graph.show_groupGraph_common()
+            self.user_graph.show_groupGraphSix()
 
     def bind_searchContacts(self, event):
 
@@ -1250,7 +1244,7 @@ class MyWindow:
             except:
                 pass
 
-myW = MyWindow()
+myW = Window()
 
 
 

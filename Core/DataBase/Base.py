@@ -1,7 +1,7 @@
 import sqlite3,os
 
 
-class MySavedProfiles:
+class SavedProfiles:
     db_path = '..\\Core\\DataBase\\DB.sqlite3'
     ProfileSaves = 'ProfileSaves'
 
@@ -112,7 +112,7 @@ class MySavedProfiles:
         cursor.close()
 
 
-    def updateUserData(self,id,changeArr):
+    def updateUserData(self, id, changeArr):
 
         cursor = self.conn.cursor()
         for i in changeArr.keys():
@@ -192,6 +192,6 @@ class MySavedProfiles:
         cursor.close()
         return find_fname_lname_id
 
- 
+
 
 

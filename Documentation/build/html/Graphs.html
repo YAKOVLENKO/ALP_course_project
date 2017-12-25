@@ -1,0 +1,229 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>graphs.py &#8212; Документация ALP_course_project </title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="interface.py" href="Interface.html" />
+    <link rel="prev" title="VK.py" href="VK.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="Interface.html" title="interface.py"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="VK.html" title="VK.py"
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="graphs-py">
+<h1>graphs.py<a class="headerlink" href="#graphs-py" title="Ссылка на этот заголовок">¶</a></h1>
+<dl class="class">
+<dt id="Graph">
+<em class="property">class </em><code class="descname">Graph</code><a class="headerlink" href="#Graph" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Построение графа</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gr_CommonFr</strong> – Граф, показывающий как много общих друзей между пользователем и его друзьями</li>
+<li><strong>gr_Group</strong> – Граф, показывающий как много друзей пользователя являются участниками определенного количества тех или иных его групп</li>
+<li><strong>gr_GroupSix</strong> – Граф, показывающий как много друзей пользователя являются участниками определенных групп</li>
+<li><strong>friends</strong> – Друзья определённого пользователя</li>
+<li><strong>last_add</strong> – Объекты, которые будут добавлены в граф <strong>gr_CommonFr</strong> при его изменении</li>
+<li><strong>pers_obj</strong> – Объект класса <a class="reference internal" href="Profile.html#Profile" title="Profile"><code class="xref py py-class docutils literal"><span class="pre">Profile</span></code></a></li>
+<li><strong>api</strong> – Сессия VK</li>
+<li><strong>token</strong> – Токен</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="Graph.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>pers_obj</em>, <em>api</em>, <em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.__init__" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Конструктор</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pers_obj</strong> – Ссылка на пользователя VK</li>
+<li><strong>api</strong> – Сессия VK</li>
+<li><strong>token</strong> – Токен</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Graph.onClick">
+<code class="descname">onClick</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.onClick" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для поиска друзей определенного пользователя</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>event</strong> – Событие, при котором начинается выполнение данной функции</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Graph.make_friendsGraph">
+<code class="descname">make_friendsGraph</code><span class="sig-paren">(</span><em>common_friends</em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.make_friendsGraph" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для создания графа <strong>gr_CommonFr</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>common_friends</strong> – Масссив, содержащий в себе информацию для построения вершин и веток</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Graph.show_friendsGraph">
+<code class="descname">show_friendsGraph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.show_friendsGraph" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для рисования графа <strong>gr_CommonFr</strong></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Graph.make_groupGraph">
+<code class="descname">make_groupGraph</code><span class="sig-paren">(</span><em>fname</em>, <em>lname</em>, <em>personal_card</em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.make_groupGraph" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для создания графа <strong>gr_Group</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> – Имя пользователя, для которого создается граф</li>
+<li><strong>lname</strong> – Фамилия пользователя, для которого создается граф</li>
+<li><strong>personal_card</strong> – Масссив, содержащий в себе информацию для построения вершин и веток</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Graph.show_groupGraph">
+<code class="descname">show_groupGraph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.show_groupGraph" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для рисования графа <strong>gr_Group</strong></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Graph.make_groupGraphSix">
+<code class="descname">make_groupGraphSix</code><span class="sig-paren">(</span><em>fname</em>, <em>lname</em>, <em>personal_card</em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.make_groupGraphSix" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для создания графа <strong>gr_GroupSix</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> – Имя пользователя, для которого создается граф</li>
+<li><strong>lname</strong> – Фамилия пользователя, для которого создается граф</li>
+<li><strong>personal_card</strong> – Масссив, содержащий в себе информацию для построения вершин и веток</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Graph.show_groupGraphSix">
+<code class="descname">show_groupGraphSix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.show_groupGraphSix" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для рисования графа <strong>gr_GroupSix</strong></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="VK.html"
+                        title="предыдущая глава">VK.py</a></p>
+  <h4>Следующий раздел</h4>
+  <p class="topless"><a href="Interface.html"
+                        title="следующая глава">interface.py</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Искать" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="Interface.html" title="interface.py"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="VK.html" title="VK.py"
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Yakovlenko Anna.
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

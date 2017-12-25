@@ -1,0 +1,250 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Profile.py &#8212; Документация ALP_course_project </title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="Base.py" href="Base.html" />
+    <link rel="prev" title="Welcome to ALP_course_project’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="Base.html" title="Base.py"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to ALP_course_project’s documentation!"
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="profile-py">
+<h1>Profile.py<a class="headerlink" href="#profile-py" title="Ссылка на этот заголовок">¶</a></h1>
+<dl class="class">
+<dt id="Profile">
+<em class="property">class </em><code class="descname">Profile</code><a class="headerlink" href="#Profile" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Обработка полученных данных о пользователе и связь с текущим пользователем через интерфейс</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Переменные:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vk_data</strong> – Общие данные пользователя для обработки</li>
+<li><strong>groups</strong> – Данные о группах пользователя для обработки</li>
+<li><strong>id</strong> – Идентификационный номер пользователя</li>
+<li><strong>fname</strong> – Имя пользователя</li>
+<li><strong>lname</strong> – Фамилия пользователя</li>
+<li><strong>mname</strong> – Отчество пользователя</li>
+<li><strong>birth_day</strong> – День рождения пользователя</li>
+<li><strong>birth_month</strong> – Месяц рождения пользователя</li>
+<li><strong>birth_year</strong> – Год рождения пользователя</li>
+<li><strong>city</strong> – Город, в котором проживает пользователь</li>
+<li><strong>country</strong> – Страна, в которой проживает пользователь</li>
+<li><strong>mobile_phone</strong> – Мобильный телефон пользователя</li>
+<li><strong>skype</strong> – Связь с пользователем: Skype</li>
+<li><strong>instagram</strong> – Связь с пользователем: Instagram</li>
+<li><strong>twitter</strong> – Связь с пользователем: Twitter</li>
+<li><strong>career</strong> – Места работы пользователя</li>
+<li><strong>education</strong> – Места учёбы пользователя</li>
+<li><strong>interests</strong> – Интересы пользователя</li>
+<li><strong>relatives</strong> – Родственные связи пользователя</li>
+<li><strong>likes</strong> – Посты, которые понравились пользователю</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="Profile.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Profile.__init__" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Конструктор</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Profile.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>site</em>, <em>access</em><span class="sig-paren">)</span><a class="headerlink" href="#Profile.set_data" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для получения и обработки общих данных о пользователе</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first last simple">
+<li><strong>site</strong> – Ссылка на пользователя VK</li>
+<li><strong>access</strong> – Токен VK</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Profile.interests_search">
+<code class="descname">interests_search</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Profile.interests_search" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для поиска интересов пользоваеля</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Profile.get_likes">
+<code class="descname">get_likes</code><span class="sig-paren">(</span><em>vk_api</em>, <em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#Profile.get_likes" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для получения понравившихся пользователю записей</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vk_api</strong> – Сессия VK</li>
+<li><strong>token</strong> – Токен VK</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Profile.get_commonFriends">
+<code class="descname">get_commonFriends</code><span class="sig-paren">(</span><em>vk_api</em>, <em>token</em>, <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Profile.get_commonFriends" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для получения информации об общих друзьях между данным пользователем и его друзьями</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first simple">
+<li><strong>vk_api</strong> – Сессия VK</li>
+<li><strong>token</strong> – Токен VK</li>
+<li><strong>id</strong> – Идентификационный номер пользователя</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"><p class="first last">Массив, содержащий информацию для формирования вершины графа</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Profile.getInfo_fromCountOfGroups">
+<code class="descname">getInfo_fromCountOfGroups</code><span class="sig-paren">(</span><em>vk_api</em>, <em>count</em><span class="sig-paren">)</span><a class="headerlink" href="#Profile.getInfo_fromCountOfGroups" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для получения информации о подписках друзей данного пользователя на определенное количество его групп</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first simple">
+<li><strong>vk_api</strong> – Сессия VK</li>
+<li><strong>count</strong> – Количество групп для проверки</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"><p class="first last">Массив, содержащий информацию для формирования вершины графа</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Profile.getInfo_fromGroups">
+<code class="descname">getInfo_fromGroups</code><span class="sig-paren">(</span><em>vk_api</em>, <em>groups</em><span class="sig-paren">)</span><a class="headerlink" href="#Profile.getInfo_fromGroups" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Функция для получения информации о подписках друзей данного пользователя на определенные группы</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first simple">
+<li><strong>vk_api</strong> – Сессия VK</li>
+<li><strong>groupst</strong> – Группы, которые нужно проверить</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"><p class="first last">Массив, содержащий информацию для формирования вершины графа</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="index.html"
+                        title="предыдущая глава">Welcome to ALP_course_project’s documentation!</a></p>
+  <h4>Следующий раздел</h4>
+  <p class="topless"><a href="Base.html"
+                        title="следующая глава">Base.py</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Искать" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="Base.html" title="Base.py"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to ALP_course_project’s documentation!"
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация ALP_course_project </a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Yakovlenko Anna.
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
